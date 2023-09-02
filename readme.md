@@ -26,7 +26,7 @@ PDFFromEpub - это инструмент на базе Python для преоб
 
 
 English:  
-# PDFFromEpub v1.1.
+# PDFFromEpub v1.2.
 PDFFromEpub is a Python-based tool for converting EPUB files to PDF format.  
 This version of the converter is specifically designed for Windows users.
 # Features

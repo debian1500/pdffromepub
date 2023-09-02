@@ -12,9 +12,9 @@ logo= r"""
   / /_/ / __  / /_/ /_  / ___/ __ \/ __ `__ \/ __/ / __ \/ / / / __ \
  / ____/ /_/ / __/ __/ / /  / /_/ / / / / / / /___/ /_/ / /_/ / /_/ /
 /_/    \__,_/_/ /_/   /_/   \____/_/ /_/ /_/_____/ .___/\__,_/_.___/ 
-                                                /_/         v1.1            
+                                                /_/         v1.2            
 """
-logo = logo.replace("v1.1", f"{Fore.YELLOW}v1.1{Style.RESET_ALL}")
+logo = logo.replace("v1.2", f"{Fore.YELLOW}v1.2{Style.RESET_ALL}")
 print(Fore.GREEN+logo)
 time.sleep(1)
 os.system('cls')
@@ -150,18 +150,22 @@ if a==1:
         cropped_image = image.crop((0, 0, a, b))
         cropped_image.save(image_path)
 elif a==2:
-    counter = 1
-
-    for file_name in os.listdir(jpg):
-        if file_name.endswith(".jpg"):
-            image = Image.open(os.path.join(jpg, file_name))
-            width, height = image.size
-            left_half = image.crop((0, 0, width//2, height))
-            right_half = image.crop((width//2, 0, width, height))
-            left_half.save(os.path.join(jpg, str(counter) + ".jpg"))
-            right_half.save(os.path.join(jpg, str(counter+1) + ".jpg"))
-            counter += 2
-            image.close()        
+    def extract_number(file_name):
+        number = ''.join(filter(str.isdigit, file_name))
+        return (int(number) if number else -1, file_name)
+    counter =0
+    all_files = os.listdir(jpg)
+    jpg_files = [file_name for file_name in all_files if file_name.endswith(".jpg")]
+    sorted_files = sorted(jpg_files, key=extract_number)
+    for file_name in sorted_files:
+        image = Image.open(os.path.join(jpg, file_name))
+        width, height = image.size
+        left_half = image.crop((0, 0, width // 2, height))
+        right_half = image.crop((width // 2, 0, width, height))
+        left_half.save(os.path.join(jpg, str(counter) + ".jpg"))
+        right_half.save(os.path.join(jpg, str(counter + 1) + ".jpg"))
+        counter += 2
+        image.close()        
 elif a==3:
     pass
 
