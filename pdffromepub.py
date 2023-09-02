@@ -12,7 +12,7 @@ logo= r"""
   / /_/ / __  / /_/ /_  / ___/ __ \/ __ `__ \/ __/ / __ \/ / / / __ \
  / ____/ /_/ / __/ __/ / /  / /_/ / / / / / / /___/ /_/ / /_/ / /_/ /
 /_/    \__,_/_/ /_/   /_/   \____/_/ /_/ /_/_____/ .___/\__,_/_.___/ 
-                                                /_/         v1.0            
+                                                /_/         v1.0.1            
 """
 logo = logo.replace("v1.0", f"{Fore.YELLOW}v1.0{Style.RESET_ALL}")
 print(Fore.GREEN+logo)
@@ -29,7 +29,7 @@ while not pdf.endswith(".pdf") or pdf.strip() == "":
     print("Неверный путь. Убедитесь, что он заканчивается на .pdf")
     pdf = input("Введите полный путь для сохранения PDF файла, с расширением: ")
 
-wk = input('Введите полный путь к программе wkhtmltoimage (по умолчанию - C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe): ')
+wk = input('Введите полный путь к программе wkhtmltoimage (по умолчанию - C:\Program Files\wkhtmltopdf\\bin\wkhtmltoimage.exe): ')
 if wk == '' or ' ' in wk:
     wk = 'C:\Progra~1\wkhtmltopdf\\bin\wkhtmltoimage.exe'
 
