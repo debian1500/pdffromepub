@@ -12,9 +12,9 @@ logo= r"""
   / /_/ / __  / /_/ /_  / ___/ __ \/ __ `__ \/ __/ / __ \/ / / / __ \
  / ____/ /_/ / __/ __/ / /  / /_/ / / / / / / /___/ /_/ / /_/ / /_/ /
 /_/    \__,_/_/ /_/   /_/   \____/_/ /_/ /_/_____/ .___/\__,_/_.___/ 
-                                                /_/         v1.0.1            
+                                                /_/         v1.1            
 """
-logo = logo.replace("v1.0", f"{Fore.YELLOW}v1.0{Style.RESET_ALL}")
+logo = logo.replace("v1.1", f"{Fore.YELLOW}v1.1{Style.RESET_ALL}")
 print(Fore.GREEN+logo)
 time.sleep(1)
 os.system('cls')
