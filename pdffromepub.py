@@ -38,7 +38,8 @@ os.system('cls') # Очищаем экран
 # Распаковка epub файла    
 unzp = 'C:\epub'
 jpg = 'C:\epub\jpg'
-shutil.rmtree(unzp)
+if os.path.exists(unzp):
+    shutil.rmtree(unzp)
 if not os.path.exists(unzp):
     os.makedirs(unzp)  
 with zipfile.ZipFile(epub, 'r') as epub_zip:
