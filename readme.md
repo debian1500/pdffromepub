@@ -1,10 +1,9 @@
-# PDFFromEpub v1.1
+# PDFFromEpub v1.3
 PDFFromEpub - это инструмент на базе Python для преобразования файлов EPUB в формат PDF.  
 Эта версия конвертера специально создана для пользователей Windows.
 # Особенности
 Извлекает изображения из файла EPUB.  
 Преобразует файл EPUB в формат PDF.  
-Предоставляет опции для изменения размера и обрезки изображений.  
 Создан для систем Windows.  
 # Использование (ознакомьтесь с требованиями!)
 Способ 1:
@@ -26,13 +25,12 @@ PDFFromEpub - это инструмент на базе Python для преоб
 
 
 English:  
-# PDFFromEpub v1.2.
+# PDFFromEpub v1.3.
 PDFFromEpub is a Python-based tool for converting EPUB files to PDF format.  
 This version of the converter is specifically designed for Windows users.
 # Features
 Extracts images from an EPUB file.  
 Converts EPUB file to PDF format.  
-Provides options for resizing and cropping images.  
 Designed for Windows systems.  
 # Usage (read the requirements!)
 Method 1:

@@ -8,13 +8,13 @@ from colorama import Fore, Back, Style
 os.system('cls')
 logo= r"""
     ____      ____________                     ______            __  
-   / __ \____/ / __/ ____/________  ____ ___  / ____/___  __  __/ /_ 
-  / /_/ / __  / /_/ /_  / ___/ __ \/ __ `__ \/ __/ / __ \/ / / / __ \
+   / __ \____/ / __/ ____/________  ________  / ____/___  __  __/ /_ 
+  / /_/ / __  / /_/ /_  / ___/ __ \/ __  __ \/ __/ / __ \/ / / / __ \
  / ____/ /_/ / __/ __/ / /  / /_/ / / / / / / /___/ /_/ / /_/ / /_/ /
-/_/    \__,_/_/ /_/   /_/   \____/_/ /_/ /_/_____/ .___/\__,_/_.___/ 
-                                                /_/         v1.2            
+/_/    \____/_/ /_/   /_/   \____/_/ /_/ /_/_____/ .___/\____/_____/ 
+                                                /_/         v1.3            
 """
-logo = logo.replace("v1.2", f"{Fore.YELLOW}v1.2{Style.RESET_ALL}")
+logo = logo.replace("v1.3", f"{Fore.YELLOW}v1.3{Style.RESET_ALL}")
 print(Fore.GREEN+logo)
 time.sleep(1)
 os.system('cls')
@@ -46,21 +46,21 @@ with zipfile.ZipFile(epub, 'r') as epub_zip:
     epub_zip.extractall(unzp)
 
 # Поиск папки с xhtml и\или html файлами    
-oebps_path = os.path.join(unzp, 'oebps')
-if not os.path.exists(oebps_path):
+htmfolder = os.path.join(unzp, 'oebps')
+if not os.path.exists(htmfolder):
     for root, dirs, files in os.walk(unzp):
         for dir in dirs:
             if dir.lower() == "oebps":
-                oebps_path = os.path.join(root, dir)
+                htmfolder = os.path.join(root, dir)
                 break
-        if oebps_path:
+        if htmfolder:
             break
 
 # Переход в папку oebps или оставаться в текущей
-os.chdir(oebps_path)
+os.chdir(htmfolder)
 
 # Переименовываем только страницы контента
-content_files = [file_name for file_name in os.listdir(oebps_path) if file_name.lower() not in ('toc.html', 'toc.xhtml') and file_name.lower().endswith(('.html', '.xhtml'))]
+content_files = [file_name for file_name in os.listdir(htmfolder) if file_name.lower() not in ('toc.html', 'toc.xhtml') and file_name.lower().endswith(('.html', '.xhtml'))]
 
 # Определение функции для сортировки по числовой части имени
 def sort_by_number(file_name):
@@ -75,9 +75,9 @@ for file_name in content_files:
     else:
         new_extension = '.html'  # Оставляем расширение .html
     new_name = f"{c}{new_extension}" 
-    old_path = os.path.join(oebps_path, file_name)
-    new_path = os.path.join(oebps_path, new_name)
-    os.rename(old_path, new_path)
+    old_jpg = os.path.join(htmfolder, file_name)
+    new_jpg = os.path.join(htmfolder, new_name)
+    os.rename(old_jpg, new_jpg)
     c += 1
 
 htmcount = c - 1  # Вычисляем количество переименованных файлов
@@ -145,27 +145,32 @@ if a==1:
         return (int(number) if number else -1, file_name)
     sorted_files = sorted(files, key=extract_number)
     for file_name in sorted_files:
-        image_path = os.path.join(jpg, file_name)
-        image = Image.open(image_path)
-        cropped_image = image.crop((0, 0, a, b))
-        cropped_image.save(image_path)
+        image_jpg = os.path.join(jpg, file_name)
+        image = Image.open(image_jpg)
+        jpgped_image = image.jpg((0, 0, a, b))
+        jpgped_image.save(image_jpg)
 elif a==2:
     def extract_number(file_name):
         number = ''.join(filter(str.isdigit, file_name))
-        return (int(number) if number else -1, file_name)
-    counter =0
-    all_files = os.listdir(jpg)
-    jpg_files = [file_name for file_name in all_files if file_name.endswith(".jpg")]
-    sorted_files = sorted(jpg_files, key=extract_number)
-    for file_name in sorted_files:
-        image = Image.open(os.path.join(jpg, file_name))
-        width, height = image.size
-        left_half = image.crop((0, 0, width // 2, height))
-        right_half = image.crop((width // 2, 0, width, height))
-        left_half.save(os.path.join(jpg, str(counter) + ".jpg"))
-        right_half.save(os.path.join(jpg, str(counter + 1) + ".jpg"))
-        counter += 2
-        image.close()        
+        return int(number) if number else -1
+    os.makedirs(jpg, exist_ok=True)
+    imglist = [f for f in os.listdir(jpg) if f.endswith('.jpg')]
+    sorted_imglist = sorted(imglist, key=lambda f: extract_number(os.path.basename(f)))
+    counter = 1
+    for i, filename in enumerate(sorted_imglist):
+        img = Image.open(os.path.join(jpg, filename))
+        width, height = img.size
+        mid = width // 2
+        left_half = img.crop((0, 0, mid, height))
+        right_half = img.crop((mid, 0, width, height))
+
+        base_filename, ext = os.path.splitext(filename)
+        left_filename = f"{base_filename}{ext}"
+        right_filename = f"{base_filename}_R{ext}"
+
+        left_half.save(os.path.join(jpg, left_filename))
+        right_half.save(os.path.join(jpg, right_filename))
+
 elif a==3:
     pass
 
